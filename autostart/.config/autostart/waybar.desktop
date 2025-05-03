@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Waybar
+GenericName=Desktop bar
+Comment=Customizable bar for Wayland compositors
+Categories=Utility;
+Keywords=wayland;bar;taskbar;
+TryExec=waybar
+Exec=waybar
+StartupNotify=false
+Terminal=false
+OnlyShowIn=Hyprland;
