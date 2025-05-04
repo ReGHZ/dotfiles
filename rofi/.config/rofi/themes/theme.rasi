@@ -1,8 +1,9 @@
+@theme "~/.config/rofi/themes/rofi-colors.rasi" 
 
 /*****----- Configuration -----*****/
 configuration {
 	modi:                       "drun,run,filebrowser,window";
-    show-icons:                 false;
+    show-icons:                 true;
     display-drun:               " ";
     display-run:                " ";
     display-filebrowser:        " ";
@@ -14,12 +15,12 @@ configuration {
 /*****----- Global Properties -----*****/
 * {
     font:                        "JetBrainsMono Nerd Font 10";
-    background:                  #101010;
-    background-alt:              #252525;
-    foreground:                  #FFFFFF;
-    selected:                    #505050;
-    active:                      #909090;
-    urgent:                      #707070;
+    background:                  @surface;
+    background-alt:              @surface-container-high;
+    foreground:                  @on-surface;
+    selected:                    @primary-container;
+    active:                      @tertiary-container;
+    urgent:                      @error-container;
 }
 
 /*****----- Main Window -----*****/
@@ -29,7 +30,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       400px;
+    width:                       600px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -54,24 +55,24 @@ listbox {
     padding:                     20px;
     background-color:            transparent;
     orientation:                 vertical;
-    children:                    [ "message", "listview", "mode-switcher" ];
+    children:                    [ "message", "listview" ];
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
     enabled:                     true;
     spacing:                     10px;
-    padding:                     100px 40px;
+    padding:                     80px 60px;
     background-color:            transparent;
-    background-image:            url("~/Pictures/Wallpapers/kaela.png", width);
+    background-image:            url("~/.config/rofi/themes/Bg.png", width);
     text-color:                  @foreground;
     orientation:                 horizontal;
-    children:                    [ "textbox-prompt-colon", "entry" ];
+    children:                    [ "textbox-prompt-colon", "entry", "dummy", "mode-switcher" ];
 }
 textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
-    str:                         " ";
+    str:                         "";
     padding:                     12px 15px;
     border-radius:               100%;
     background-color:            @background-alt;
@@ -79,7 +80,8 @@ textbox-prompt-colon {
 }
 entry {
     enabled:                     true;
-    expand:                      true;
+    expand:                      false;
+    width:                       250px;
     padding:                     12px 16px;
     border-radius:               100%;
     background-color:            @background-alt;
@@ -87,6 +89,10 @@ entry {
     cursor:                      text;
     placeholder:                 "Search";
     placeholder-color:           inherit;
+}
+dummy {
+    expand:                      true;
+    background-color:            transparent;
 }
 
 /*****----- Mode Switcher -----*****/
@@ -97,6 +103,7 @@ mode-switcher{
     text-color:                  @foreground;
 }
 button {
+    width:                       45px;
     padding:                     12px;
     border-radius:               100%;
     background-color:            @background-alt;
@@ -112,7 +119,7 @@ button selected {
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       5;
+    lines:                       7;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -131,7 +138,7 @@ listview {
 element {
     enabled:                     true;
     spacing:                     10px;
-    padding:                     12px;
+    padding:                     4px;
     border-radius:               100%;
     background-color:            transparent;
     text-color:                  @foreground;
@@ -188,8 +195,8 @@ textbox {
     horizontal-align:            0.0;
 }
 error-message {
-    padding:                     15px;
-    border-radius:               0px;
+    padding:                     12px;
+    border-radius:               20px;
     background-color:            @background;
     text-color:                  @foreground;
 }

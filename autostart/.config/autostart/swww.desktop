@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=swww daemon
+Comment=Start swww wallpaper daemon
+Exec=swww init
+StartupNotify=false
+Terminal=false
+OnlyShowIn=Hyprland;

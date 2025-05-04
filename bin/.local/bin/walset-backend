@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+
+# Check dependencies
+for cmd in swww wal matugen notify-send uwsm; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Error: '$cmd' is not installed or not in PATH."
+        exit 2
+    fi
+done
+
+# Check if the user provided an argument
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <path_to_image>"
+    exit 1
+fi
+
+IMAGE="$1"
+
+if [ ! -f "$IMAGE" ]; then
+    echo "Error: File '$IMAGE' does not exist."
+    exit 3
+fi
+
+# Temporary wallpaper for rofi bg image
+TEMP_WALL="$HOME/.config/rofi/themes/Bg.png"
+
+# Create Temp directory if it doesn't exist
+mkdir -p "$(dirname "$TEMP_WALL")"
+
+# Resize and optimize for Rofi background (adjust width as needed)
+convert "$IMAGE" -resize 600x -quality 85 "$TEMP_WALL"
+
+# Send notification to the user
+notify-send "Changing Theme" "Applying new wallpaper and updating colors, please wait until confirmation..."
+
+# Set wallpaper
+swww img "$IMAGE" --transition-type="center" --transition-step=1 --transition-fps="60"
+
+# Generate pywal colors
+uwsm app -- wal -i "$IMAGE" -n -s -t -e
+
+# Use Matugen to generate Material You colors
+uwsm app -- matugen image "$IMAGE"
+
+notify-send "Theme Applied" "Wallpaper and theme updated successfully!"
