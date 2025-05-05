@@ -44,4 +44,10 @@ uwsm app -- wal -i "$IMAGE" -n -s -t -e
 # Use Matugen to generate Material You colors
 uwsm app -- matugen image "$IMAGE"
 
+# restart waybar
+killall -9 waybar
+waybar &
+
+# Notify swaync
 notify-send "Theme Applied" "Wallpaper and theme updated successfully!"
+
