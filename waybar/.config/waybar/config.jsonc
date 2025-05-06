@@ -3,35 +3,78 @@
   "position": "top",
   "height": 30,
   "spacing": 4,
-  "modules-left": ["custom/launcher","hyprland/workspaces","custom/weather","custom/pacman"],
-  "modules-center": ["custom/media"],
-  "modules-right": ["custom/notification","pulseaudio", "battery", "network", "power-profiles-daemon","clock","custom/power-manager"],
-  
+  "modules-left": [
+    "custom/power-manager",
+    "clock",
+    "hyprland/workspaces",
+    "network",
+    "custom/bluetooth",
+    "custom/weather",
+    "custom/pacman"
+  ],
+  "modules-center": ["custom/notification","custom/media"],
+  "modules-right": [
+  "custom/brightness",
+  "custom/volume",
+  "custom/battery"],
+
   "custom/launcher": {
     "format": "  ",
     "on-click": "bash ~/.config/rofi/scripts/launcher.sh",
     "tooltip-format": "Launch your favorite apps"
   },
-  
+
+  "custom/power-manager": {
+    "format": "{icon}",
+    "format-icons": [" 󰐥 "],
+    "tooltip": false,
+    "on-click": "bash ~/.config/rofi/applets/bin/powermenu.sh"
+  },
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:%a, %d. %b  %H:%M}",
+    "tooltip-format": "{:%Y-%m-%d}"
+  },
   "hyprland/workspaces": {
     "format": "{icon}",
     "on-click": "activate",
     "format-icons": {
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "10"
+      "1": "[1]",
+      "2": "[2]",
+      "3": "[3]",
+      "4": "[4]",
+      "5": "[5]",
+      "6": "[6]",
+      "7": "[7]",
+      "8": "[8]",
+      "9": "[9]",
+      "10": "[10]"
     },
     "persistent-workspaces": {
-      "*": 5 // 5 workspaces by default on every monitor
+      "*": 5
     },
     "sort-by-number": true
+  },
+  "network": {
+    "interval": 5,
+    "format": "{icon} {essid}",
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈀  Ethernet",
+    "format-disconnected": "󰤭  Offline",
+    "tooltip-format": "󰛳 {ifname}\n IP: {ipaddr}/{cidr}",
+    "format-icons": {
+      "ethernet": "󰈀",
+      "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+      "disconnected": "󰤭"
+    }
+  },
+
+  "custom/bluetooth": {
+  "format": "BT: {}",
+  "exec": "~/.config/waybar/scripts/bluetooth_status.sh",
+  "interval": 10,
+  "tooltip": false
   },
   
   "custom/weather": {
@@ -50,7 +93,7 @@
     "signal": 8,
     "tooltip-format": "{} updates available"
   },
-  
+
   "custom/notification": {
     "tooltip": false,
     "format": "{icon}",
@@ -72,6 +115,7 @@
     "escape": true
   },
 
+
   "custom/media": {
     "format": "{}",
     "escape": true,
@@ -84,112 +128,32 @@
     "on-scroll-down": "playerctl previous",
     "exec": "~/.config/waybar/scripts/mediaplayer.py 2> /dev/null" // Script in resources/custom_modules folder
   },
-  
-  "pulseaudio": {
-    "format": "{icon}  {volume}%",
-    "format-bluetooth": "󰂱 {volume}%",
-    "format-muted": "󰖁",
-    "scroll-step": 1,
-    "ignored-sinks": ["Easy Effects Sink"],
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "󰋎",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["󰖀", "󰕾"]
-    },
-    "tooltip-format": "Volume: {volume}%",
-    "on-click": "bash ~/.config/rofi/applets/bin/volume.sh"
-  },
-  
-  "battery": {
-    "format": "{icon}  {capacity}%",
-    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    "format-charging": "󰂄  {capacity}%",
-    "states": {
-            "warning": 30,
-            "critical": 20
-        },
-    "tooltip-format": "Battery is at {capacity}%",
-    "on-click": "bash ~/.config/rofi/applets/bin/battery.sh"
-  },
-  
-  "network": {
-    "interval": 5,
-      "format": "{icon} {essid}",
-      "format-wifi": "  {essid} ({signalStrength}%)",
-      "format-ethernet": "󰈀  Ethernet",
-      "format-disconnected": "󰤭  Offline",
-      "tooltip-format": "󰛳 {ifname}\n IP: {ipaddr}/{cidr}",
-      "signal-strength-thresholds": [
-        [40, 20],
-        [60, 40],
-        [80, 60],
-        [100, 80]
-      ],
-      // "on-click": "" ,
-      "format-icons": {
-          "ethernet": "󰈀",
-          "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-          "disconnected": "󰤭"
-      }
-  },
 
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "tooltip-format": "Power mode: {profile}",
-    "tooltip": true,
-    "format-icons": {
-      "default": "",
-      "performance": "󰠠",
-      "balanced": "󰚀",
-      "power-saver": "󰌪"
-    }
-  },
-
-  "clock": {
-    "format": "󰥔  {:%H:%M}",
-    "format-alt": "󰥔  {:%a, %d. %b  %H:%M}",
-    "tooltip-format": "Date: {:%Y-%m-%d}"
-  },
-
-  "custom/power-manager": {
-    "format": "{icon}",
-    "format-icons": [" 󰐥 "],
+  "custom/brightness": {
+    "format": "{text} {percentage}%",
+    "exec": "bash /home/refrain/.config/waybar/scripts/brightness_ascii.sh",
+    "interval": 2,
     "tooltip": false,
-    "on-click": "bash ~/.config/rofi/applets/bin/powermenu.sh"
-  },
-
-  "backlight": {
-    "device": "intel_backlight",
-    "format": "{icon}   {percent}%",
-    "format-icons": ["󰃞", "󰃟", "󰃠"]
+    "signal": 9,
+    "return-type": "json"
   },
   
-  "hyprland/window": {
-    "format": "{class}",
-    "separate-outputs": true,
-    "icon": true,
-    "icon-size": 18
-},
+  "custom/volume": {
+    "format": "{text} {percentage}%",
+    "exec": "bash /home/refrain/.config/waybar/scripts/volume_ascii.sh",
+    "interval": 2,
+    "tooltip": false,
+    "signal": 10,
+    "return-type": "json"
+  },
   
-  "cpu": {
-    "interval": 10,
-    "format": "    {}%",
-    "max-length": 10
-  },
-
-  "memory": {
+  "custom/battery": {
+    "format": "{text} {percentage}%",
+    "exec": "bash /home/refrain/.config/waybar/scripts/battery_ascii.sh",
     "interval": 30,
-    "format": "    {}%",
-    "max-length": 10
-  },
-
-  "disk": {
-    "interval": 30,
-    "format": "   {percentage_used}% used on {path}",
-    "path": "/"
+    "tooltip": false,
+    "signal": 11,
+    "return-type": "json"
   }
+
 }

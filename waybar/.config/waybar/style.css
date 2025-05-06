@@ -1,14 +1,16 @@
 @import url("/home/refrain/.config/waybar/waybar-colors.css");
 
 * {
-  font-family: "DM Sans", "JetBrainsMono Nerd Font", sans-serif;
-  font-size: 13px;
-  font-weight: 500;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 window#waybar {
-  background: alpha(@background, 0.8);
+  background: alpha(@background, 0.9);
   color: @on_surface;
+  border: 1px solid @outline_variant;
+  border-radius: 0;
 }
 
 .modules-left,
@@ -17,6 +19,7 @@ window#waybar {
   margin: 0 2px;
 }
 
+/* WORKSPACES */
 #workspaces {
   background: transparent;
   padding: 0;
@@ -26,88 +29,134 @@ window#waybar {
 
 #workspaces button {
   background: transparent;
-  color: @on_surface; /* Use visible color */
-  padding: 2px 8px;
-  margin: 0 1px;
+  color: @on_surface;
   border-radius: 0;
-  transition: background 0.2s, color 0.2s;
-  font-weight: 500;
-  box-shadow: none;
+  border: 1px solid @outline_variant;
+  padding: 2px 5px;
+  margin: 0 1px;
 }
 
 #workspaces button.active {
-  background: @primary_fixed_dim;
-  color: @on_primary_fixed;
+  background: @primary;
+  color: @on_primary;
+  border-color: @primary;
 }
 
 #workspaces button.urgent {
   background: @error;
   color: @on_error;
+  border-color: @error_container;
 }
 
 #workspaces button:hover {
-  background: @surface_container_highest;
+  background: @surface_container_high;
   color: @primary;
+  border-color: @primary;
 }
 
 #workspaces button.empty {
   color: @outline;
+  border-color: transparent;
 }
 
-#battery,
-#pulseaudio,
-#network,
-#clock,
+/* === ASCII / CUSTOM MODULES === */
 #custom-weather,
-#custom-media,
 #custom-pacman,
-#window,
-#cpu,
-#memory,
-#disk,
-#tray,
-#custom-launcher,
-#custom-power-manager,
 #custom-notification,
-#power-profiles-daemon {
+#custom-media,
+#custom-volume,
+#custom-brightness,
+#custom-battery,
+#network,
+#custom-bluetooth,
+#custom-power-manager,
+#clock {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  background: transparent;
   color: @primary;
-  background: transparent;
   padding: 0 6px;
-  margin: 0 0 0 3px;
+  margin: 0 3px;
   border-radius: 0;
-  font-weight: 500;
   box-shadow: none;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
-#battery.warning {
+/* Hover: konsisten ASCII style, tidak rounded */
+#custom-weather:hover,
+#custom-pacman:hover,
+#custom-notification:hover,
+#custom-media:hover,
+#custom-volume:hover,
+#custom-brightness:hover,
+#custom-battery:hover,
+#network:hover,
+#custom-bluetooth:hover,
+#custom-power-manager:hover,
+#clock:hover {
+  background: @primary_fixed_dim;
+  color: @on_primary_fixed;
+  opacity: 1;
+  border-radius: 0;
+}
+
+/* Hover untuk warning */
+#custom-battery.warning:hover,
+#custom-brightness.warning:hover,
+#custom-volume.warning:hover {
+  background: alpha(@secondary, 0.2);
+  color: @on_secondary;
+  border-radius: 0;
+}
+
+/* Hover untuk critical */
+#custom-battery.critical:hover,
+#custom-brightness.critical:hover,
+#custom-volume.critical:hover {
+  background: alpha(@error, 0.3);
+  color: @on_error;
+  border-radius: 0;
+}
+
+/* Status khusus */
+#custom-bluetooth.inactive {
+  opacity: 0.3;
+  color: @outline;
+}
+
+#network.disconnected {
+  opacity: 0.4;
+  color: @outline;
+}
+
+/* Battery: warning = orange, critical = merah & berkedip */
+#custom-battery.warning {
+  color: @secondary;
+  background: alpha(@secondary, 0.1);
+}
+#custom-battery.critical {
   color: @error;
+  background: alpha(@error, 0.2);
+  animation: blink 0.5s linear infinite alternate;
 }
 
-#battery.critical {
+/* Brightness & Volume: warning = kuning terang, critical = merah terang, TIDAK berkedip */
+#custom-brightness.warning,
+#custom-volume.warning {
+  color: @secondary;
+  background: alpha(@secondary, 0.15);
+}
+#custom-brightness.critical,
+#custom-volume.critical {
   color: @error;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  background: alpha(@error, 0.2);
 }
 
-#window.hidden {
-  opacity: 0;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
-window#waybar.empty #window {
-  background: transparent;
-}
-
+/* Animasi blink hanya untuk battery critical */
 @keyframes blink {
   to {
-      background-color: @error;
-      color: @on_error;
+    background-color: @error;
+    color: @on_error;
   }
 }
