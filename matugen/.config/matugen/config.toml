@@ -30,3 +30,6 @@ output_path = '~/.config/qt6ct/colors/matugen.conf'
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'
 output_path = '~/.config/rofi/themes/rofi-colors.rasi'
 
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty-colors.conf'
+output_path = '~/.config/kitty/colors.conf'

@@ -4,8 +4,8 @@
   "height": 30,
   "spacing": 4,
   "modules-left": ["custom/launcher","hyprland/workspaces","custom/weather","custom/pacman"],
-  "modules-center": ["custom/notification","custom/media"],
-  "modules-right": ["pulseaudio", "battery", "network", "power-profiles-daemon","clock","custom/power-manager"],
+  "modules-center": ["custom/media"],
+  "modules-right": ["custom/notification","pulseaudio", "battery", "network", "power-profiles-daemon","clock","custom/power-manager"],
   
   "custom/launcher": {
     "format": "  ",

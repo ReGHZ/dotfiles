@@ -33,19 +33,14 @@ configuration {
 		parse-user:   true;
 		/** Parse system desktop files. */
 		parse-system: true;
+		fallback-icon: "application-x-addon";
     }
 
 	/*---------- Run settings ----------*/
 	run-command: "uwsm app -- {cmd}";
 	run-list-command: "";
-	run-shell-command: "kitty -e {cmd}";
-
-	/*---------- Fallback Icon ----------*/
+	run-shell-command: "uwsm app -- kitty -e {cmd}";
 	run {
-		fallback-icon: "application-x-addon";
-	}
-
-    drun {
 		fallback-icon: "application-x-addon";
 	}
 

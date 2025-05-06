@@ -1,0 +1,99 @@
+@import '../../.cache/wal/colors-waybar.css';
+@import 'themes/nova-dark/notifications.css';
+@import 'themes/nova-dark/central_control.css';
+
+/* Make everything rectangular */
+.control-center {
+  border-radius: 0;
+}
+
+.notification-background {
+  border-radius: 0;
+}
+
+.notification {
+  border-radius: 0;
+}
+
+.notification-action {
+  border-radius: 0;
+}
+
+.close-button {
+  border-radius: 0;
+}
+
+/* MPRIS - no background */
+.widget-mpris {
+  border-radius: 0;
+  margin: 20px 6px;
+  background: transparent;
+}
+
+.widget-mpris-player {
+  border-radius: 0;
+  padding: 6px 14px;
+  background: transparent;
+}
+
+.widget-mpris-album-art {
+  border-radius: 0;
+}
+
+/* DND switch */
+.widget-dnd switch {
+  border-radius: 0;
+}
+
+.widget-dnd switch slider {
+  border-radius: 0;
+}
+
+/* Buttons grid with background */
+.widget-buttons-grid {
+  background: @background-alt;
+  border-radius: 0;
+}
+
+.widget-buttons-grid flowboxchild button {
+  border-radius: 0;
+}
+
+/* Title */
+.widget-title button {
+  border-radius: 0;
+}
+
+/* Make floating notifications rectangular */
+.floating-notifications.background .notification-row .notification-background {
+  border-radius: 0;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification {
+  border-radius: 0;
+}
+
+.floating-notifications.background .notification-row .notification-background .notification .notification-action {
+  border-radius: 0;
+}
+
+.floating-notifications.background .notification-row .notification-background .close-button {
+  border-radius: 0;
+}
+
+/* Make notification history rectangular */
+.control-center .notification-row .notification-background {
+  border-radius: 0;
+}
+
+.control-center .notification-row .notification-background .notification {
+  border-radius: 0;
+}
+
+.control-center .notification-row .notification-background .notification .notification-action {
+  border-radius: 0;
+}
+
+.control-center .notification-row .notification-background .close-button {
+  border-radius: 0;
+}

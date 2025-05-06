@@ -2,15 +2,18 @@
 
 # Dependencies: cliphist, wl-copy, rofi, notify-send, a terminal emulator (e.g., foot)
 
+# Path to the style-1 theme
+ROFI_THEME="/home/refrain/.config/rofi/applets/type-1/style-1.rasi"
+
 # Show clipboard history with "Clear All" at the top
-SELECTION=$(printf "󰆴 Clear All\n%s" "$(cliphist list)" | rofi -dmenu -i -p "Clipboard:" -selected-row 1)
+SELECTION=$(printf "󰆴 Clear All\n%s" "$(cliphist list)" | rofi -dmenu -i -p "Clipboard:" -selected-row 1 -theme "$ROFI_THEME")
 
 # Exit if nothing selected
 [ -z "$SELECTION" ] && exit 0
 
 # If user selects "Clear All", confirm it
 if [[ "$SELECTION" == "󰆴 Clear All" ]]; then
-    CONFIRM=$(printf "No\nYes" | rofi -dmenu -i -p "Are you sure you want to wipe history?")
+    CONFIRM=$(printf "No\nYes" | rofi -dmenu -i -p "Are you sure you want to wipe history?" -theme "$ROFI_THEME")
     [[ "$CONFIRM" == "Yes" ]] && {
         cliphist wipe
         notify-send "cliphist" "Clipboard history wiped"
@@ -19,7 +22,7 @@ if [[ "$SELECTION" == "󰆴 Clear All" ]]; then
 fi
 
 # Ask what to do with the selected entry
-ACTION=$(printf "Copy\nDelete\nEdit" | rofi -dmenu -i -p "Action for selected:")
+ACTION=$(printf "Copy\nDelete\nEdit" | rofi -dmenu -i -p "Action for selected:" -theme "$ROFI_THEME")
 
 case "$ACTION" in
   Copy)

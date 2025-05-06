@@ -23,15 +23,6 @@ if [ ! -f "$IMAGE" ]; then
     exit 3
 fi
 
-# Temporary wallpaper for rofi bg image
-TEMP_WALL="$HOME/.config/rofi/themes/Bg.png"
-
-# Create Temp directory if it doesn't exist
-mkdir -p "$(dirname "$TEMP_WALL")"
-
-# Resize and optimize for Rofi background (adjust width as needed)
-convert "$IMAGE" -resize 600x -quality 85 "$TEMP_WALL"
-
 # Send notification to the user
 notify-send "Changing Theme" "Applying new wallpaper and updating colors, please wait until confirmation..."
 
@@ -44,9 +35,13 @@ uwsm app -- wal -i "$IMAGE" -n -s -t -e
 # Use Matugen to generate Material You colors
 uwsm app -- matugen image "$IMAGE"
 
-# restart waybar
-killall -9 waybar
-waybar &
+# Refresh swaync
+pkill swaync
+swaync > /dev/null 2>&1 &
+
+# Refresh waybar
+pkill waybar
+waybar > /dev/null 2>&1 &
 
 # Notify swaync
 notify-send "Theme Applied" "Wallpaper and theme updated successfully!"
