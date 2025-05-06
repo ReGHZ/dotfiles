@@ -59,6 +59,11 @@
   border-radius: 0;
 }
 
+.widget-buttons-grid flowboxchild button:hover {
+  border-radius: 0; /* Ensure hover state has no rounded corners */
+  background: @hover;
+}
+
 /* Title */
 .widget-title button {
   border-radius: 0;
