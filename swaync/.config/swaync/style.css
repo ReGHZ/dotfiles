@@ -1,104 +1,238 @@
 @import '../../.cache/wal/colors-waybar.css';
-@import 'themes/nova-dark/notifications.css';
-@import 'themes/nova-dark/central_control.css';
 
-/* Make everything rectangular */
-.control-center {
-  border-radius: 0;
+* {
+  font-family: JetBrainsMono NFP;
+  font-weight: bold;
+  font-size: 14px;
+  color: @foreground;
 }
 
-.notification-background {
-  border-radius: 0;
+/* Notification Row */
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+  opacity: 1;
+  background: @color0;
+}
+
+.notification-row {
+  outline: none;
+  margin: 10px;
+  padding: 0;
 }
 
 .notification {
-  border-radius: 0;
+  background: transparent;
+  margin: 0;
 }
 
-.notification-action {
+.notification-content {
+  background: @background;
+  padding: 8px;
+  border: 2px solid @color8;
   border-radius: 0;
+  margin: 0;
 }
 
 .close-button {
+  background: @color1;
+  color: @background;
+  padding: 0;
+  border-radius: 0;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.close-button:hover {
+  background: @color9;
+  color: @background;
+  box-shadow: none;
+  border: none;
+  transition: all .15s ease-in-out;
+}
+
+.notification-action {
+  color: @foreground;
+  background: @color0;
+  border: 2px solid @color8;
+  border-top: none;
   border-radius: 0;
 }
 
-/* MPRIS - no background */
-.widget-mpris {
+.notification-default-action:hover,
+.notification-action:hover {
+  background: @color0;
+  color: @foreground;
+}
+
+.summary {
+  padding-top: 7px;
+  font-size: 13px;
+  color: @foreground;
+}
+
+.time {
+  font-size: 11px;
+  color: @color3;
+  margin-right: 24px;
+}
+
+.body {
+  font-size: 12px;
+  color: @foreground;
+}
+
+/* Control Center */
+.control-center {
+  background: @background;
+  border: 2px solid @color8;
   border-radius: 0;
-  margin: 20px 6px;
+}
+
+.control-center-list {
   background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: .5;
+}
+
+.floating-notifications,
+.blank-window {
+  background: transparent;
+}
+
+/* Widget Title */
+.widget-title {
+  background: @color0;
+  padding: 5px 10px;
+  margin: 10px 10px 5px 10px;
+  font-size: 1.5rem;
+  border-radius: 0;
+  border: 2px solid @color8;
+}
+
+.widget-title>button {
+  font-size: 1rem;
+  color: @foreground;
+  background: @color0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.widget-title>button:hover {
+  background: @color3;
+  color: @background;
+}
+
+/* DND Widget */
+.widget-dnd {
+  background: @color0;
+  padding: 5px 10px;
+  margin: 5px 10px 10px 10px;
+  border-radius: 0;
+  font-size: large;
+  color: @foreground;
+  border: 2px solid @color8;
+}
+
+/* --- DND SWITCH & SLIDER --- */
+.widget-dnd > switch,
+.widget-dnd > switch slider,
+.widget-dnd > switch:checked,
+.widget-dnd > switch:checked slider {
+  border-radius: 0;
+  background: @color8;
+  border: 2px solid @color8;
+  transition: none;
+}
+
+.widget-dnd > switch:checked {
+  background: @color3;
+  border: 2px solid @color3;
+}
+
+.widget-dnd > switch slider,
+.widget-dnd > switch:checked slider {
+  background: @background;
+  border-radius: 0;
+  transition: none;
+}
+
+.widget-dnd > switch:hover,
+.widget-dnd > switch:checked:hover {
+  background: @color3;
+  border: 2px solid @color3;
+}
+
+.widget-dnd > switch:hover slider,
+.widget-dnd > switch:checked:hover slider {
+  background: @color3;
+  border-radius: 0;
+  border-color: @color3;
+  transition: none;
+}
+
+/* Widget Label */
+.widget-label {
+  margin: 10px 10px 5px 10px;
+}
+
+.widget-label>label {
+  font-size: 1rem;
+  color: @foreground;
+}
+
+/* --- MPRIS: Hilangkan semua rounded, termasuk artwork/image --- */
+.widget-mpris,
+.widget-mpris-player,
+.widget-mpris button,
+.widget-mpris > box > button,
+.widget-mpris-player button,
+.widget-mpris image,
+.widget-mpris-player image {
+  border-radius: 0;
+}
+
+.widget-mpris {
+  background: @color0;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 0;
+  border: 2px solid @color8;
+  color: @foreground;
+}
+
+.widget-mpris button,
+.widget-mpris > box > button,
+.widget-mpris-player button {
+  background: @color0;
+  color: @foreground;
+  border: 1px solid @color8;
+  border-radius: 0;
+}
+
+.widget-mpris button:hover,
+.widget-mpris > box > button:hover,
+.widget-mpris-player button:hover {
+  background: @color3;
+  color: @background;
+  border-color: @color3;
+  border-radius: 0;
 }
 
 .widget-mpris-player {
-  border-radius: 0;
-  padding: 6px 14px;
-  background: transparent;
-}
-
-.widget-mpris-album-art {
+  padding: 5px 10px;
+  margin: 0;
   border-radius: 0;
 }
 
-/* DND switch */
-.widget-dnd switch {
-  border-radius: 0;
+.widget-mpris-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: @foreground;
 }
 
-.widget-dnd switch slider {
-  border-radius: 0;
-}
-
-/* Buttons grid with background */
-.widget-buttons-grid {
-  background: @background-alt;
-  border-radius: 0;
-}
-
-.widget-buttons-grid flowboxchild button {
-  border-radius: 0;
-}
-
-.widget-buttons-grid flowboxchild button:hover {
-  border-radius: 0; /* Ensure hover state has no rounded corners */
-  background: @hover;
-}
-
-/* Title */
-.widget-title button {
-  border-radius: 0;
-}
-
-/* Make floating notifications rectangular */
-.floating-notifications.background .notification-row .notification-background {
-  border-radius: 0;
-}
-
-.floating-notifications.background .notification-row .notification-background .notification {
-  border-radius: 0;
-}
-
-.floating-notifications.background .notification-row .notification-background .notification .notification-action {
-  border-radius: 0;
-}
-
-.floating-notifications.background .notification-row .notification-background .close-button {
-  border-radius: 0;
-}
-
-/* Make notification history rectangular */
-.control-center .notification-row .notification-background {
-  border-radius: 0;
-}
-
-.control-center .notification-row .notification-background .notification {
-  border-radius: 0;
-}
-
-.control-center .notification-row .notification-background .notification .notification-action {
-  border-radius: 0;
-}
-
-.control-center .notification-row .notification-background .close-button {
-  border-radius: 0;
+.widget-mpris-subtitle {
+  font-size: 1.1rem;
+  color: @color6;
 }
