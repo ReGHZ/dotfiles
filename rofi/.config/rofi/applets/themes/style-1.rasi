@@ -1,0 +1,137 @@
+
+/*****----- Configuration -----*****/
+configuration {
+    show-icons:                 false;
+}
+
+/*****----- Global Properties -----*****/
+@theme "~/.config/rofi/themes/rofi-colors.rasi" 
+@import                          "../shared/fonts.rasi"
+* {
+    background:                  @surface;
+    background-alt:              @surface-container-high;
+    foreground:                  @on-surface;
+    selected:                    @inverse-primary;
+    active:                      @primary;
+    urgent:                      @error;
+}
+
+/*
+USE_ICON=NO
+*/
+
+/*****----- Main Window -----*****/
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 400px;
+    x-offset: 0px;
+    y-offset: 0px;
+    margin: 0px;
+    padding: 0px;
+    border: 1px;
+    border-radius: 0px;
+    border-color: @primary;
+    background-color: @background;
+    cursor: "default";
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled: true;
+    spacing: 4px;
+    margin: 0px;
+    padding: 4px;
+    background-color: transparent;
+    children: [ "inputbar", "message", "listview" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled: true;
+    spacing: 4px;
+    padding: 0px;
+    border: 0px;
+    border-radius: 0px;
+    background-color: transparent;
+    text-color: @foreground;
+    children: [ "textbox-prompt-colon", "prompt" ];
+}
+
+textbox-prompt-colon {
+    enabled: true;
+    expand: false;
+    str: ">";
+    padding: 0px 8px;
+    border-radius: 0px;
+    background-color: @primary;
+    text-color: @background;
+}
+
+prompt {
+    enabled: true;
+    padding: 0px 8px;
+    border-radius: 0px;
+    background-color: @primary;
+    text-color: @background;
+}
+
+/*****----- Message -----*****/
+message {
+    enabled: true;
+    margin: 0px;
+    padding: 4px;
+    border: 0px;
+    border-radius: 0px;
+    background-color: @background-alt;
+    text-color: @foreground;
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled: true;
+    columns: 1;
+    lines: 8;
+    cycle: true;
+    scrollbar: false;
+    layout: vertical;
+    spacing: 2px;
+    background-color: transparent;
+    cursor: "default";
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled: true;
+    padding: 2px 8px;
+    border: 1px;
+    border-radius: 0px;
+    border-color: @outline;
+    background-color: transparent;
+    text-color: @foreground;
+    margin: 0px 0px 2px 0px;
+}
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+element selected {
+    background-color: @selected;
+    text-color: @background;
+    border: 1px;
+    border-color: @primary;
+}
+
+
+element active {
+    background-color: @active;
+    text-color: @on-primary;
+}
+
+element urgent {
+    background-color: @urgent;
+    text-color: @on-error;
+}

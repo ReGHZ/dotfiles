@@ -29,7 +29,7 @@ window#waybar {
 
 #workspaces button {
   background: transparent;
-  color: @on_surface;
+  color: @primary;
   border-radius: 0;
   border: 1px solid @outline_variant;
   padding: 2px 5px;
@@ -50,7 +50,7 @@ window#waybar {
 
 #workspaces button:hover {
   background: @surface_container_high;
-  color: @primary;
+  color: @on_surface;
   border-color: @primary;
 }
 
@@ -102,6 +102,7 @@ window#waybar {
 }
 
 /* Hover untuk warning */
+#custom-battery.charging:hover,
 #custom-battery.warning:hover,
 #custom-brightness.warning:hover,
 #custom-volume.warning:hover {
@@ -113,7 +114,8 @@ window#waybar {
 /* Hover untuk critical */
 #custom-battery.critical:hover,
 #custom-brightness.critical:hover,
-#custom-volume.critical:hover {
+#custom-volume.critical:hover,
+#custom-volume.muted:hover {
   background: alpha(@error, 0.3);
   color: @on_error;
   border-radius: 0;
@@ -141,6 +143,11 @@ window#waybar {
   animation: blink 0.5s linear infinite alternate;
 }
 
+#custom-battery.charging {
+  color: @on_surface;
+  background-color: alpha(@on_surface_variant, 0.1);
+}
+
 /* Brightness & Volume: warning = kuning terang, critical = merah terang, TIDAK berkedip */
 #custom-brightness.warning,
 #custom-volume.warning {
@@ -149,6 +156,10 @@ window#waybar {
 }
 #custom-brightness.critical,
 #custom-volume.critical {
+  color: @error;
+  background: alpha(@error, 0.2);
+}
+#custom-volume.muted {
   color: @error;
   background: alpha(@error, 0.2);
 }

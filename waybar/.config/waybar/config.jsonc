@@ -25,16 +25,15 @@
   },
 
   "custom/power-manager": {
-    "format": "{icon}",
-    "format-icons": [" 󰐥 "],
+    "format":"[PWR]",
     "tooltip": false,
     "on-click": "bash ~/.config/rofi/applets/bin/powermenu.sh"
   },
 
   "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:%a, %d. %b  %H:%M}",
-    "tooltip-format": "{:%Y-%m-%d}"
+    "format": "[{:%H:%M}]",
+    "format-alt": "[{:%a, %d. %b  %H:%M}]",
+    "tooltip-format": "[{:%Y-%m-%d}]"
   },
   "hyprland/workspaces": {
     "format": "{icon}",
@@ -124,36 +123,39 @@
     "on-click": "playerctl play-pause",
     "on-click-right": "playerctl stop",
     "smooth-scrolling-threshold": 1, // This value was tested using a trackpad, it should be lowered if using a mouse.
-    "on-scroll-up": "playerctl next",
-    "on-scroll-down": "playerctl previous",
+    "on-scroll-up": "playerctl previous",
+    "on-scroll-down": "playerctl next",
     "exec": "~/.config/waybar/scripts/mediaplayer.py 2> /dev/null" // Script in resources/custom_modules folder
   },
 
   "custom/brightness": {
     "format": "{text} {percentage}%",
-    "exec": "bash /home/refrain/.config/waybar/scripts/brightness_ascii.sh",
+    "exec": "bash ~/.config/waybar/scripts/brightness_ascii.sh",
     "interval": 2,
     "tooltip": false,
     "signal": 9,
-    "return-type": "json"
+    "return-type": "json",
+    "on-click":"bash ~/.config/rofi/applets/bin/brightness.sh"
   },
   
   "custom/volume": {
     "format": "{text} {percentage}%",
-    "exec": "bash /home/refrain/.config/waybar/scripts/volume_ascii.sh",
+    "exec": "bash ~/.config/waybar/scripts/volume_ascii.sh",
     "interval": 2,
     "tooltip": false,
     "signal": 10,
-    "return-type": "json"
+    "return-type": "json",
+    "on-click":"bash ~/.config/rofi/applets/bin/volume.sh"
   },
   
   "custom/battery": {
     "format": "{text} {percentage}%",
-    "exec": "bash /home/refrain/.config/waybar/scripts/battery_ascii.sh",
-    "interval": 30,
+    "exec": "bash ~/.config/waybar/scripts/battery_ascii.sh",
+    "interval": 5,
     "tooltip": false,
     "signal": 11,
-    "return-type": "json"
+    "return-type": "json",
+    "on-click":"bash ~/.config/rofi/applets/bin/battery.sh"
   }
 
 }
