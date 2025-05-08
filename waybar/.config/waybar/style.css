@@ -106,8 +106,8 @@ window#waybar {
 #custom-battery.warning:hover,
 #custom-brightness.warning:hover,
 #custom-volume.warning:hover {
-  background: alpha(@secondary, 0.2);
   color: @on_secondary;
+  background: @secondary;
   border-radius: 0;
 }
 
@@ -116,8 +116,8 @@ window#waybar {
 #custom-brightness.critical:hover,
 #custom-volume.critical:hover,
 #custom-volume.muted:hover {
-  background: alpha(@error, 0.3);
   color: @on_error;
+  background: @error;
   border-radius: 0;
 }
 
@@ -135,11 +135,11 @@ window#waybar {
 /* Battery: warning = orange, critical = merah & berkedip */
 #custom-battery.warning {
   color: @secondary;
-  background: alpha(@secondary, 0.1);
+  background: @on_secondary;
 }
 #custom-battery.critical {
   color: @error;
-  background: alpha(@error, 0.2);
+  background: @on_error;
   animation: blink 0.5s linear infinite alternate;
 }
 
@@ -152,16 +152,17 @@ window#waybar {
 #custom-brightness.warning,
 #custom-volume.warning {
   color: @secondary;
-  background: alpha(@secondary, 0.15);
+  background: @on_secondary;
 }
 #custom-brightness.critical,
 #custom-volume.critical {
   color: @error;
-  background: alpha(@error, 0.2);
+  background: @on_error;
 }
+
 #custom-volume.muted {
   color: @error;
-  background: alpha(@error, 0.2);
+  background: alpha(@error, 0.4);
 }
 
 /* Animasi blink hanya untuk battery critical */
