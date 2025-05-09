@@ -71,13 +71,10 @@ window#waybar {
 #custom-bluetooth,
 #custom-power-manager,
 #clock {
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 12px;
-  font-weight: 600;
   background: transparent;
   color: @primary;
   padding: 0 6px;
-  margin: 0 3px;
+  margin: 0 2px;
   border-radius: 0;
   box-shadow: none;
   transition: color 0.2s ease, background 0.2s ease;

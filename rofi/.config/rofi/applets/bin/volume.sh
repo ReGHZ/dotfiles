@@ -85,7 +85,7 @@ show_menu() {
   rofi -theme "$THEME" \
   -theme-str "window {width: 400px;}" \
   -theme-str "listview {columns: 1; lines: 5;}" \
-  -theme-str 'textbox-prompt-colon {str: "AUDIO";}' \
+  -theme-str 'textbox-prompt-colon {str: "[VOL]";}' \
   -dmenu \
   -p "$prompt" \
   -mesg "$mesg" \
