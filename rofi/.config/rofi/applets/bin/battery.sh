@@ -84,7 +84,7 @@ show_menu() {
     -theme-str 'textbox-prompt-colon {str: "[BAT]";}' \
     -dmenu \
     -p "$prompt" \
-    -mesg "Time remaining: $time_remaining" \
+    -mesg "[Time remaining: $time_remaining]" \
     <<< "$(printf "%s\n" "${options[@]}")"
 }
 

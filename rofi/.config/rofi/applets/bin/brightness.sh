@@ -34,7 +34,7 @@ get_brightness_info() {
 # ========================
 update_ui() {
   prompt="${percentage}% "
-  mesg="Device: ${backlight_device##*/} | Level: $level"
+  mesg="[Device: ${backlight_device##*/} | Level: $level]"
   options=(
     "[UP]   Increase"
     "[OPT]  Optimal"

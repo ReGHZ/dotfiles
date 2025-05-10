@@ -50,7 +50,7 @@ update_ui_elements() {
   fi
 
   prompt="Speaker: $stext | Mic: $mtext"
-  mesg="Volume: $speaker_vol% | Mic Level: $mic_vol%"
+  mesg="[Volume: $speaker_vol% ] | [Mic Level: $mic_vol%]"
 
   options=(
       "[+VOL] Increase"

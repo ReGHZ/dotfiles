@@ -7,7 +7,7 @@ theme="$type/$style"
 
 # Theme Elements
 prompt="$(hostname)"
-mesg="Uptime: $(uptime -p | sed -e 's/up //g')"
+mesg="[Uptime: $(uptime -p | sed -e 's/up //g')]"
 
 if [[ "$theme" == *'themes'* ]]; then
 	list_col='1'
@@ -67,7 +67,7 @@ run_cmd() {
 	case "$1" in
 		'--opt1') hyprlock ;;
 		'--opt2') confirm_run 'hyprctl dispatch exit' ;;
-		'--opt3') confirm_run 'mpc -q pause' 'amixer set Master mute' 'systemctl suspend' ;;
+		'--opt3') confirm_run 'amixer set Master mute' 'systemctl suspend' ;;
 		'--opt4') confirm_run 'systemctl hibernate' ;;
 		'--opt5') confirm_run 'systemctl reboot' ;;
 		'--opt6') confirm_run 'systemctl poweroff' ;;

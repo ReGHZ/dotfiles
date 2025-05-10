@@ -31,9 +31,9 @@ window {
     y-offset: 0px;
     margin: 0px;
     padding: 0px;
-    border: 2px dash; 
+    border: 1px; 
     border-radius: 0px;
-    border-color: @primary;
+    border-color: @outline-variant;
     background-color: @background;
     cursor: "default";
 }
@@ -66,27 +66,29 @@ textbox-prompt-colon {
     str: ">";
     padding: 0px 8px;
     border-radius: 0px;
-    background-color: @primary;
-    text-color: @background;
+    background-color: @background;
+    text-color: @primary;
 }
 
 prompt {
     enabled: true;
     padding: 0px 8px;
     border-radius: 0px;
-    background-color: @primary;
-    text-color: @background;
+    background-color: @background;
+    text-color: @primary;
 }
 
 /*****----- Message -----*****/
 message {
     enabled: true;
     margin: 0px;
-    padding: 4px;
-    border: 0px;
-    border-radius: 0px;
-    background-color: @background-alt;
-    text-color: @foreground;
+    padding: 06px;
+    background-color: @background;
+}
+
+textbox {
+    background-color: @background;
+    text-color: @primary;
 }
 
 /*****----- Listview -----*****/
@@ -100,6 +102,8 @@ listview {
     spacing: 2px;
     background-color: transparent;
     cursor: "default";
+    border: 1px;
+    border-color: @outline-variant;
 }
 
 /*****----- Elements -----*****/
@@ -107,11 +111,10 @@ element {
     enabled: true;
     padding: 2px 8px;
     margin: 0px 4px 1px 4px;
-    border: 1px dash;
+    border: 0px;
     border-radius: 0px;
-    border-color: @outline;
-    background-color: transparent;
-    text-color: @foreground;
+    background-color: @background;
+    text-color: @primary;
     margin: 0px 0px 2px 0px;
 }
 element-text {
@@ -122,13 +125,13 @@ element-text {
 element selected {
     background-color: @selected;
     text-color: @background;
-    border: 1px dash;
+    border: 0px;
     border-color: @primary;
 }
 
 
 element active {
-    background-color: @active;
+    background-color: @primary;
     text-color: @on-primary;
 }
 

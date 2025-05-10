@@ -14,7 +14,7 @@ THEME="$HOME/.config/rofi/applets/themes/style-1.rasi"
 # UI Elements
 # ========================
 prompt='[SHOT]'
-mesg="DIR: ${SCREENSHOT_DIR}"
+mesg="[DIR: ${SCREENSHOT_DIR}]"
 
 options=(
   "[FULL] Fullscreen"

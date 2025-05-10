@@ -35,6 +35,70 @@ uwsm app -- wal -i "$IMAGE" -n -s -t -e
 # Use Matugen to generate Material You colors
 uwsm app -- matugen image "$IMAGE"
 
+# Hyprlock change colors
+M_CONF="$HOME/.config/hypr/colors.conf"
+get_rgba() {
+  local NAME="$1"
+  grep "^\$$NAME" "$M_CONF" | head -n1 | cut -d'=' -f2 | tr -d ' '
+}
+
+BG_RGBA=$(get_rgba background)
+FG_RGBA=$(get_rgba primary)
+
+# change background alpha to 0.5 ("80" = 0,5 in 8 digit hex) 
+BG_RGBA_SEMI=$(echo "$BG_RGBA" \
+  | sed -E 's/rgba\(\s*([0-9A-Fa-f]{6})([0-9A-Fa-f]{2})?\s*\)/rgba(\1'"80"')/')
+
+# --- Generate hyprlock.conf every change theme ---
+HYPRLOCK="$HOME/.config/hypr/hyprlock.conf"
+cat > "$HYPRLOCK" <<-EOF
+general {
+    hide_cursor = false
+}
+
+background {
+    monitor =
+    color = $BG_RGBA
+    blur_passes = 0
+    blur_size = 7
+    noise = 0.0117
+    brightness = 0.7
+}
+
+input-field {
+    monitor =
+    font_family = JetBrainsMono Nerd Font
+    size = 200, 50
+    outline_thickness = 0
+    outer_color = rgba(0, 0, 0, 0)
+    inner_color = rgba(0, 0, 0, 0)
+    dots_size = 0.2
+    dots_spacing = 0.5
+    dots_center = true
+    dots_rounding = 0
+    font_color = $FG_RGBA
+    fade_on_empty = true
+    hide_input = false
+    position = 0, -240
+    halign = center
+    valign = center
+    placeholder_text = PASSWORD
+    fail_text = ACCESS_DENIED
+    rounding = 0
+}
+
+label {
+    monitor =
+    text = cmd[update:1000] echo "<b><span size='60pt'>[ $(date +"%I.%M") </span> <span size='25pt'>$(date +" %p")</span><span size='60pt'> ]</span></b>"
+    font_size = 25
+    font_family = JetBrainsMono Nerd Font
+    color = $FG_RGBA
+    position = 0, 0
+    halign = center
+    valign = center
+}
+EOF
+
 # Refresh swaync
 pkill swaync
 swaync > /dev/null 2>&1 &

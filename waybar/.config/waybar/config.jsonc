@@ -61,7 +61,7 @@
     "format-ethernet": "[ETH {icon}] Ethernet",
     "format-disconnected": "[OFF {icon}] Offline",
     "tooltip-format": "[{ifname}]\nIP: {ipaddr}/{cidr}",
-    "on-click": "kitty -e nmtui",
+    "on-click": "kitty --title nmtui -e nmtui",
     "format-icons": {
       "wifi": [
         "⣀",   // 0-20%
@@ -93,7 +93,7 @@
   "custom/pacman": {
     "format": "[PKG] {}",
     "exec": "bash -c 'count=$(checkupdates | wc -l); [[ $count -gt 0 ]] && echo $count || echo \"\"'",
-    "on-click": "uwsm app -- kitty sudo pacman -Syu",
+    "on-click": "kitty --title 'pacman' sudo pacman -Syu",
     "interval": 3600,
     "signal": 8,
     "tooltip-format": "{} updates available"
