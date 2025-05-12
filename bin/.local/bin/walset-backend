@@ -71,7 +71,7 @@ input-field {
     size = 200, 50
     outline_thickness = 0
     outer_color = rgba(0, 0, 0, 0)
-    inner_color = rgba(0, 0, 0, 0)
+    inner_color = rgba(17, 17, 17, 0.6)
     dots_size = 0.2
     dots_spacing = 0.5
     dots_center = true
@@ -84,6 +84,9 @@ input-field {
     valign = center
     placeholder_text = PASSWORD
     fail_text = ACCESS_DENIED
+    fail_color = rgba(0, 0, 0, 0)    
+    check_color = rgba(0, 0, 0, 0)        
+    swap_font_color = false  
     rounding = 0
 }
 
