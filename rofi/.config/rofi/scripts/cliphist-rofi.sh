@@ -3,7 +3,7 @@
 # Dependencies: cliphist, wl-copy, rofi, notify-send, a terminal emulator (e.g., foot)
 
 # Path to the style-1 theme
-ROFI_THEME="/home/refrain/.config/rofi/applets/themes/style-1.rasi"
+ROFI_THEME="$HOME/.config/rofi/themes/style-1.rasi"
 
 # Show clipboard history with "Clear All" at the top
 SELECTION=$(printf "󰆴 Clear All\n%s" "$(cliphist list)" | rofi -dmenu -i -p "Clipboard:" -selected-row 1 -theme "$ROFI_THEME")

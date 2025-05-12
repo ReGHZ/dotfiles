@@ -3,7 +3,7 @@
 set -e
 
 # Check dependencies
-for cmd in swww wal matugen notify-send uwsm; do
+for cmd in swww wal matugen notify-send; do
     if ! command -v "$cmd" &>/dev/null; then
         echo "Error: '$cmd' is not installed or not in PATH."
         exit 2
@@ -30,10 +30,10 @@ notify-send "Changing Theme" "Applying new wallpaper and updating colors, please
 swww img "$IMAGE" --transition-type="center" --transition-step=1 --transition-fps="60"
 
 # Generate pywal colors
-uwsm app -- wal -i "$IMAGE" -n -s -t -e
+wal -i "$IMAGE" -n -s -t -e
 
 # Use Matugen to generate Material You colors
-uwsm app -- matugen image "$IMAGE"
+matugen image "$IMAGE"
 
 # Hyprlock change colors
 M_CONF="$HOME/.config/hypr/colors.conf"

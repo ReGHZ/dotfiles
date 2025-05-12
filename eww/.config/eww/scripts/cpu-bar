@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Check if a core number was provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <core_number>"
+    exit 1
+fi
+
+core_target="$1"
+
+# Braille characters from left (empty) to right (full)
+# Each character increases in density to simulate progress
+braille_chars=("⠀" "⠁" "⠃" "⠇" "⡇" "⣇" "⣧" "⣷" "⣿")
+
+# Get per-core CPU usage sample
+mpstat -P "$core_target" 1 1 | awk -v target="$core_target" '
+BEGIN {
+    # Define braille characters for 0–8 fill levels
+    split("⠀ ⠁ ⠃ ⠇ ⡇ ⣇ ⣧ ⣷ ⣿", braille, " ")
+}
+/^[0-9]+/ && $3 ~ /^[0-9]+$/ {
+    core = $3
+    if (core == target) {
+        idle = $(NF)
+        usage = 100 - idle
+        usage_int = int(usage + 0.5)
+
+        bar_width = 8
+        fill_level = int(usage_int * bar_width / 100)
+
+        bar = ""
+        for (i = 0; i < bar_width; i++) {
+            if (i < fill_level) {
+                bar = bar braille[9]
+            } else {
+                bar = bar braille[1]
+            }
+        }
+
+        printf("[ %s ]\n", bar)
+    }
+}'

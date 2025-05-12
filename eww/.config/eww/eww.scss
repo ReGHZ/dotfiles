@@ -1,0 +1,34 @@
+@import './colors.scss';
+* {
+  all: unset;
+  padding: 2px;
+  color: $on_background;
+}
+
+.nameinfo {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.varlabel {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+}
+
+.workspace-bracket {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  font-size: 300px;
+}
+
+.workspace-name {
+  font-family: "UDEV Gothic HS";
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.workspace-box {
+  font-family: "JetBrainsMono Nerd Font";
+  padding: 50px;
+}

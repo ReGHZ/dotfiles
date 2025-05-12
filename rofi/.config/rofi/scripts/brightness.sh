@@ -4,7 +4,7 @@
 # ========================
 # Config Section
 # ========================
-THEME_DIR="$HOME/.config/rofi/applets/themes"
+THEME_DIR="$HOME/.config/rofi/themes"
 THEME_STYLE='style-1.rasi'
 THEME="$THEME_DIR/$THEME_STYLE"
 

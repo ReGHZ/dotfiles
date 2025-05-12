@@ -3,7 +3,7 @@
 /*****----- Configuration -----*****/
 configuration {
 	modi:                       "drun,run,filebrowser,window";
-    show-icons:                 true;
+    show-icons:                 false;
     display-drun:               " ";
     display-run:                " ";
     display-filebrowser:        " ";
@@ -137,9 +137,6 @@ scrollbar {
 element {
     enabled: true;
     padding: 2px 8px;
-    border: 1px;
-    border-radius: 0px;
-    border-color: @outline;
     background-color: transparent;
     text-color: @foreground-colour;
     margin: 0px 0px 2px 0px;

@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Braille characters from empty to full
+braille_chars=("⠀" "⠁" "⠃" "⠇" "⡇" "⣇" "⣧" "⣷" "⣿")
+
+# Draw an 8-block braille bar based on % usage
+draw_braille_bar() {
+    usage=$1
+    bar_width=8
+    filled=$(( usage * bar_width / 100 ))
+
+    bar=""
+    for ((i=0; i<bar_width; i++)); do
+        if (( i < filled )); then
+            bar+="${braille_chars[8]}"
+        else
+            bar+="${braille_chars[0]}"
+        fi
+    done
+    echo "[ $bar ]"
+}
+
+# Get memory and swap usage using `free -m`
+get_ram_usage() {
+    read -r _ total used _ <<< $(free -m | awk '/^Mem:/ { print $1, $2, $3 }')
+    echo $(( (used * 100) / total ))
+}
+
+get_swap_usage() {
+    read -r _ total used <<< $(free -m | awk '/^Swap:/ { print $1, $2, $3 }')
+    if [ "$total" -eq 0 ]; then
+        echo 0
+    else
+        echo $(( (used * 100) / total ))
+    fi
+}
+
+# CLI arg parser
+case "$1" in
+    ram)
+        ram=$(get_ram_usage)
+        echo "$(draw_braille_bar $ram)"
+        ;;
+    swap)
+        swap=$(get_swap_usage)
+        echo "$(draw_braille_bar $swap)"
+        ;;
+    *)
+        echo "Usage: $0 {ram|swap}"
+        exit 1
+        ;;
+esac

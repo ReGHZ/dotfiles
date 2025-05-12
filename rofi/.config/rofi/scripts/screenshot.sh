@@ -8,7 +8,7 @@
 SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
 FILENAME="screenshot_$(date +%Y-%m-%d_%H-%M-%S).png"
 FULL_PATH="${SCREENSHOT_DIR}/${FILENAME}"
-THEME="$HOME/.config/rofi/applets/themes/style-1.rasi"
+THEME="$HOME/.config/rofi/themes/style-1.rasi"
 
 # ========================
 # UI Elements

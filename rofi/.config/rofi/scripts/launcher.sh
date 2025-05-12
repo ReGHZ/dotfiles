@@ -6,5 +6,7 @@ theme='theme'
 ## Run
 rofi \
     -show drun \
-    -theme "${dir}/${theme}.rasi" \
-    -run-command "uwsm app -- {cmd}"
+    -theme "${dir}/${theme}.rasi"
+
+#use this for uwsm
+##\-run-command "uwsm app -- {cmd}"

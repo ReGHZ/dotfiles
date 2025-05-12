@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Import Current Theme
-type="$HOME/.config/rofi/applets/themes"
+type="$HOME/.config/rofi/themes"
 style='style-1.rasi'
 theme="$type/$style"
 

@@ -26,7 +26,7 @@
   "custom/power-manager": {
     "format":"[PWR]",
     "tooltip": false,
-    "on-click": "bash ~/.config/rofi/applets/bin/powermenu.sh"
+    "on-click": "bash ~/.config/rofi/scripts/powermenu.sh"
   },
 
   "clock": {
@@ -73,13 +73,6 @@
       "ethernet": "⣿",
       "disconnected": "x"
     }
-  },
-
-  "custom/bluetooth": {
-  "format": "BT: {}",
-  "exec": "~/.config/waybar/scripts/bluetooth_status.sh",
-  "interval": 10,
-  "tooltip": false
   },
   
   "custom/weather": {
@@ -141,7 +134,7 @@
     "tooltip": false,
     "signal": 9,
     "return-type": "json",
-    "on-click":"bash ~/.config/rofi/applets/bin/brightness.sh",
+    "on-click":"bash ~/.config/rofi/scripts/brightness.sh",
     "on-scroll-up": "brightnessctl set +1% && pkill -SIGRTMIN+9 waybar",
     "on-scroll-down": "brightnessctl set 1%- && pkill -SIGRTMIN+9 waybar"
   },
@@ -153,7 +146,7 @@
     "tooltip": false,
     "signal": 10,
     "return-type": "json",
-    "on-click":"bash ~/.config/rofi/applets/bin/volume.sh",
+    "on-click":"bash ~/.config/rofi/scripts/volume.sh",
     "on-scroll-up": "amixer set Master 1%+ && pkill -RTMIN+10 waybar",
     "on-scroll-down": "amixer set Master 1%- && pkill -RTMIN+10 waybar",
     "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGRTMIN+10 waybar"
@@ -166,7 +159,7 @@
     "tooltip": false,
     "signal": 11,
     "return-type": "json",
-    "on-click":"bash ~/.config/rofi/applets/bin/battery.sh"
+    "on-click":"bash ~/.config/rofi/scripts/battery.sh"
   }
 
 }

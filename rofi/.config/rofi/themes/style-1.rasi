@@ -5,8 +5,8 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@theme "~/.config/rofi/themes/rofi-colors.rasi" 
-@import                          "../shared/fonts.rasi"
+@theme                           "~/.config/rofi/themes/rofi-colors.rasi" 
+@import                          "~/.config/rofi/shared/fonts.rasi"
 * {
     background:                  @surface;
     background-alt:              @surface-container-high;
