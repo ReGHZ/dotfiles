@@ -37,9 +37,9 @@ configuration {
     }
 
 	/*---------- Run settings ----------*/
-	run-command: "uwsm app -- {cmd}";
+	run-command: "{cmd}";
 	run-list-command: "";
-	run-shell-command: "uwsm app -- kitty -e {cmd}";
+	run-shell-command: "kitty -e {cmd}";
 	run {
 		fallback-icon: "application-x-addon";
 	}

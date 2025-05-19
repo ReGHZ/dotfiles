@@ -11,8 +11,9 @@
     "custom/bluetooth",
     "custom/pacman"
   ],
-  "modules-center": ["custom/weather","custom/notification","custom/media"],
+  "modules-center": ["custom/weather","custom/media"],
   "modules-right": [
+  "custom/notification",
   "custom/brightness",
   "custom/volume",
   "custom/battery"],
@@ -75,14 +76,7 @@
     }
   },
   
-  "custom/weather": {
-    "format": "{}",
-    "exec": "~/.config/waybar/scripts/get_weather.sh",
-    "return-type": "json",
-    "tooltip": true,
-    "interval": 300
-  },
-
+  
   "custom/pacman": {
     "format": "[PKG] {}",
     "exec": "bash -c 'count=$(checkupdates | wc -l); [[ $count -gt 0 ]] && echo $count || echo \"\"'",
@@ -91,29 +85,17 @@
     "signal": 8,
     "tooltip-format": "{} updates available"
   },
-
-  "custom/notification": {
-    "tooltip": false,
-  "format": "{icon}",
-  "format-icons": {
-    "notification": "[*]",
-    "none": "[ ]",
-    "dnd-notification": "[DND*]",
-    "dnd-none": "[DND]",
-    "inhibited-notification": "[MUTED*]",
-    "inhibited-none": "[MUTED]",
-    "dnd-inhibited-notification": "[DND-MUTED*]",
-    "dnd-inhibited-none": "[DND-MUTED]"
-  },
+  
+  "custom/weather": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/get_weather.sh",
     "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "swaync-client -t -sw",
-    "on-click-right": "swaync-client -d -sw",
-    "escape": true
+    "tooltip": true,
+    "interval": 300
   },
 
-
+  
+  
   "custom/media": {
     "format": "{}",
     "escape": true,
@@ -127,6 +109,27 @@
     "exec": "~/.config/waybar/scripts/mediaplayer.py 2> /dev/null" // Script in resources/custom_modules folder
   },
 
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+  "format-icons": {
+    "notification": "[*]",
+    "none": "[ ]",
+    "dnd-notification": "[DND*]",
+    "dnd-none": "[DND]",
+    "inhibited-notification": "[MUTED*]",
+    "inhibited-none": "[MUTED]",
+    "dnd-inhibited-notification": "[DND-MUTED*]",
+    "dnd-inhibited-none": "[DND-MUTED]"
+  },
+  "return-type": "json",
+  "exec-if": "which swaync-client",
+  "exec": "swaync-client -swb",
+  "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  
   "custom/brightness": {
     "format": "{text} {percentage}%",
     "exec": "bash ~/.config/waybar/scripts/brightness_ascii.sh",

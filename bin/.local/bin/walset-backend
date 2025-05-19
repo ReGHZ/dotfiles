@@ -92,7 +92,7 @@ input-field {
 
 label {
     monitor =
-    text = cmd[update:1000] echo "<b><span size='60pt'>[ $(date +"%I.%M") </span> <span size='25pt'>$(date +" %p")</span><span size='60pt'> ]</span></b>"
+    text = cmd[update:1000] date +"<b><span size='60pt'>[ %I.%M </span> <span size='25pt'> %p</span><span size='60pt'> ]</span></b>"
     font_size = 25
     font_family = JetBrainsMono Nerd Font
     color = $FG_RGBA
