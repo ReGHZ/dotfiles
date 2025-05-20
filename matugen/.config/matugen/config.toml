@@ -37,3 +37,8 @@ output_path = '~/.config/kitty/colors.conf'
 [templates.eww]
 input_path = '~/.config/matugen/templates/eww-colors.scss'
 output_path = '~/.config/eww/colors.scss'
+
+[templates.pywalfox]
+input_path = '~/.config/matugen/templates/pywalfox-colors.json'
+output_path = '~/.cache/wal/colors.json'
+post_hook = "pywalfox update"

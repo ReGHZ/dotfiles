@@ -15,6 +15,8 @@
 (defpoll name-poll :interval "5m" "h=$(uname -n); u=$(whoami); echo $u @ $h")
 (defpoll core0-temp-poll :interval "10s" "sensors | grep 'Core 0' | awk '{print $3}'")
 (defpoll core1-temp-poll :interval "10s" "sensors | grep 'Core 1' | awk '{print $3}'")
+(defpoll core2-temp-poll :interval "10s" "sensors | grep 'Core 2' | awk '{print $3}'")
+(defpoll core3-temp-poll :interval "10s" "sensors | grep 'Core 3' | awk '{print $3}'")
 (defpoll net-stat-poll :interval "10s" "scripts/network-status connectivity")
 (defpoll net-interface-poll :interval "10s" "scripts/network-status interface")
 (defpoll net-ssid-poll :interval "10s" "scripts/network-status ssid")
@@ -125,22 +127,25 @@
 
 
 (defwidget core-temp-widget []
-	(box	:orientation "h"
+	(box	:orientation "v"
 		:halign "center"
-		:spacing 16
+		:spacing 8
 
 		(box	:orientation "h"
-			:space-evenly "false"
+			:spacing 16
 			
 			(label :text "CORE0_TMP: " :class "varlabel")
 			(label :text core0-temp-poll)
+			(label :text "CORE1_TMP: " :class "varlabel")
+			(label :text core1-temp-poll)
 
 		)
 		(box	:orientation "h"
-			:space-evenly "false"
-			
-			(label :text "CORE1_TMP: " :class "varlabel")
-			(label :text core1-temp-poll)
+			:spacing 16
+			(label :text "CORE2_TMP: " :class "varlabel")
+			(label :text core2-temp-poll)
+			(label :text "CORE3_TMP: " :class "varlabel")
+			(label :text core3-temp-poll)
 		)
 	)		
 )
