@@ -1,6 +1,19 @@
 #!/bin/bash
+shopt -s nullglob
+bats=(/sys/class/power_supply/BAT*)
+if [ "${#bats[@]}" -eq 0 ]; then
+  echo "{\"text\": \"AC\", \"class\": \"no-battery\"}"
+  exit 0
+fi
+
 capacity=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n 1)
 status=$(cat /sys/class/power_supply/BAT*/status 2>/dev/null | head -n 1)
+
+if [ -z "$capacity" ]; then
+  echo "{\"text\": \"AC\", \"class\": \"no-battery\"}"
+  exit 0
+fi
+
 bar=$(bash ~/.config/waybar/scripts/braille_bar.sh "$capacity" 100)
 
 # Tentukan class berdasarkan value
