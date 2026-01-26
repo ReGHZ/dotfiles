@@ -3,7 +3,7 @@
 set -e
 
 # Check dependencies
-for cmd in swww wal matugen notify-send; do
+for cmd in swww wal matugen notify-send magick; do
     if ! command -v "$cmd" &>/dev/null; then
         echo "Error: '$cmd' is not installed or not in PATH."
         exit 2
@@ -27,13 +27,141 @@ fi
 notify-send "Changing Theme" "Applying new wallpaper and updating colors, please wait until confirmation..."
 
 # Set wallpaper
-swww img "$IMAGE" --transition-type="center" --transition-step=1 --transition-fps="60"
+# swww img "$IMAGE" --transition-type="center" --transition-step=1 --transition-fps="60"
+for MON in $(hyprctl monitors -j | jq -r '.[].name'); do
+    swww img "$IMAGE" --outputs "$MON" --transition-type="center" --transition-step=1 --transition-fps="60"
+done
 
 # Generate pywal colors
-wal -i "$IMAGE" -n -s -t -e
+is_grayscale() {
+  python - "$1" <<'PY'
+import re
+import subprocess
+import sys
+
+img = sys.argv[1]
+cmd = [
+    "magick",
+    img,
+    "-alpha",
+    "off",
+    "-resize",
+    "64x64",
+    "-colors",
+    "16",
+    "-unique-colors",
+    "txt:-",
+]
+
+try:
+    output = subprocess.check_output(cmd, text=True, stderr=subprocess.DEVNULL)
+except Exception:
+    sys.exit(1)
+
+hexes = re.findall(r"#([0-9A-Fa-f]{6})", output)
+for h in hexes:
+    r = int(h[0:2], 16)
+    g = int(h[2:4], 16)
+    b = int(h[4:6], 16)
+    if r != g or g != b:
+        sys.exit(1)
+
+sys.exit(0)
+PY
+}
+
+gray_mean() {
+  python - "$1" <<'PY'
+import subprocess
+import sys
+
+img = sys.argv[1]
+cmd = [
+    "magick",
+    img,
+    "-colorspace",
+    "Gray",
+    "-format",
+    "%[fx:round(255*mean)]",
+    "info:",
+]
+
+try:
+    output = subprocess.check_output(cmd, text=True, stderr=subprocess.DEVNULL).strip()
+    v = int(output)
+except Exception:
+    v = 128
+
+v = max(0, min(255, v))
+print(f"#{v:02x}{v:02x}{v:02x}")
+PY
+}
+
+make_bw_theme() {
+  local img="$1"
+  local out="$2"
+  python - "$img" "$out" <<'PY'
+import json
+import re
+import subprocess
+import sys
+
+img, out = sys.argv[1], sys.argv[2]
+cmd = [
+    "magick",
+    img,
+    "-colorspace",
+    "Gray",
+    "-format",
+    "%[fx:round(255*minima.r)],%[fx:round(255*maxima.r)]",
+    "info:",
+]
+
+try:
+    output = subprocess.check_output(cmd, text=True, stderr=subprocess.DEVNULL).strip()
+    parts = [int(p) for p in output.split(",")]
+    lo, hi = parts[0], parts[1]
+except Exception:
+    lo, hi = 0, 255
+
+lo = max(0, min(255, lo))
+hi = max(0, min(255, hi))
+if lo == hi:
+    hi = 255 if lo < 255 else 0
+
+def gray_hex(v):
+    return f"#{v:02x}{v:02x}{v:02x}"
+
+def blend_gray(a, b, t):
+    return round(a + (b - a) * t)
+
+colors = [gray_hex(blend_gray(lo, hi, i / 15.0)) for i in range(16)]
+data = {
+    "special": {"background": colors[0], "foreground": colors[-1], "cursor": colors[-1]},
+    "colors": {f"color{i}": colors[i] for i in range(16)},
+}
+
+with open(out, "w", encoding="utf-8") as f:
+    json.dump(data, f, separators=(",", ":"))
+PY
+}
+
+if is_grayscale "$IMAGE"; then
+  TMP_WAL_THEME="$(mktemp /tmp/wal-bw-XXXXXX.json)"
+  make_bw_theme "$IMAGE" "$TMP_WAL_THEME"
+  wal --theme "$TMP_WAL_THEME" -n -s -t -e
+elif ! wal -i "$IMAGE" -n -s -t -e; then
+  TMP_WAL_THEME="$(mktemp /tmp/wal-bw-XXXXXX.json)"
+  make_bw_theme "$IMAGE" "$TMP_WAL_THEME"
+  wal --theme "$TMP_WAL_THEME" -n -s -t -e
+fi
 
 # Use Matugen to generate Material You colors
-matugen image "$IMAGE"
+MATUGEN_ARGS=()
+if is_grayscale "$IMAGE"; then
+  MATUGEN_ARGS=(--type scheme-monochrome --fallback-color "$(gray_mean "$IMAGE")")
+fi
+matugen image "$IMAGE" "${MATUGEN_ARGS[@]}"
 
 # Hyprlock change colors
 M_CONF="$HOME/.config/hypr/colors.conf"
@@ -108,8 +236,8 @@ swaync > /dev/null 2>&1 &
 
 # Refresh waybar
 pkill waybar
+pkill -f "mediaplayer.py" 2>/dev/null
 waybar > /dev/null 2>&1 &
 
 # Notify swaync
 notify-send "Theme Applied" "Wallpaper and theme updated successfully!"
-

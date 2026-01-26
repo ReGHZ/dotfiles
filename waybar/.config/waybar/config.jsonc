@@ -94,8 +94,6 @@
     "interval": 300
   },
 
-  
-  
   "custom/media": {
     "format": "{}",
     "escape": true,

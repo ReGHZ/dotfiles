@@ -36,7 +36,7 @@ case "$ACTION" in
   Edit)
     TMPFILE=$(mktemp)
     echo "$SELECTION" | cliphist decode > "$TMPFILE"
-    kitty nvim "$TMPFILE"
+    kitty --class clipboard-edit -e nvim "$TMPFILE"
     wl-copy < "$TMPFILE"
     echo "$SELECTION" | cliphist delete
     rm "$TMPFILE"

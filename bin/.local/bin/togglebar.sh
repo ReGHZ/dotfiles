@@ -17,7 +17,7 @@ while true; do
         	fi
     	else
         	# No windows open — eww
-		pkill -x waybar  # Kill horizontal Waybar
+		pkill -x waybar && pkill -f "mediaplayer.py" # Kill horizontal Waybar
         	if ! eww active-windows | grep sysinfo; then
         		eww open sysinfo
 		fi
