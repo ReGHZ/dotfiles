@@ -58,19 +58,21 @@ if [[ -f "$CACHE_FILE" && $(stat -c %Y "$CACHE_FILE") -ge $(date -d "30 minutes 
     exit 0
 fi
 
-# Icon replacement function
-replace_icons() {
-    sed -e 's/☀️/[sun]/g' \
-        -e 's/☁️/[cloud]/g' \
-        -e 's/🌧/[rain]/g' \
-        -e 's/❄️/[snow]/g' \
-        -e 's/🌫/[mist]/g' \
-        -e 's/⚡/[storm]/g' \
-        -e 's/🌩️/[lightning]/g' \
-        -e 's/🌥️/[cloudy]/g' \
-        -e 's/🌤️/[sun-cloud]/g' \
-        -e 's/🌦/[mixed]/g' \
-        -e 's/⛅️/[partly cloudy]/g'
+# Map weather condition text to short ASCII label
+condition_label() {
+    local cond="${1,,}" # lowercase
+    case "$cond" in
+        *thunder*|*storm*)       echo "[storm]" ;;
+        *sleet*)                 echo "[sleet]" ;;
+        *shower*)                echo "[shower]" ;;
+        *drizzle*|*rain*)        echo "[rain]" ;;
+        *snow*|*blizzard*)       echo "[snow]" ;;
+        *mist*|*fog*|*haze*)     echo "[mist]" ;;
+        *overcast*|*very*cloud*) echo "[cloud]" ;;
+        *partly*|*cloudy*)       echo "[cloudy]" ;;
+        *clear*|*sunny*)         echo "[sun]" ;;
+        *)                       echo "[${cond:0:8}]" ;;
+    esac
 }
 
 # Check internet connectivity first
@@ -109,21 +111,21 @@ for i in {1..3}; do
         exit 0
     fi
     
-    # Fetch weather data with timeouts
-    short=$(curl -s --connect-timeout 5 --max-time 15 -A "Waybar-Weather" \
-        "https://wttr.in/${location}?0&format=1&m&qT" 2>/dev/null)
-    
-    # Debug: uncomment these lines to see what we're getting
-    # echo "Debug short: $short" >&2
-    
+    # Fetch condition and temperature separately (no emoji)
+    condition=$(curl -s --connect-timeout 5 --max-time 15 -A "Waybar-Weather" \
+        "https://wttr.in/${location}?format=%C&m" 2>/dev/null)
+    temp=$(curl -s --connect-timeout 5 --max-time 15 -A "Waybar-Weather" \
+        "https://wttr.in/${location}?format=%t&m" 2>/dev/null)
+
     # Check if response is valid weather data
-    if is_valid_weather "$short"; then
+    if is_valid_weather "$condition" && [[ -n "$temp" ]]; then
         # Process the data
-        short_ascii=$(echo "$short" | sed -E "s/\s+/ /g" | replace_icons)
-        
+        label=$(condition_label "$condition")
+        short_ascii="$label $temp"
+
         output=$(jq -c -n \
             --arg text "$short_ascii" \
-            --arg tooltip "${location/+/ }: $short_ascii" \
+            --arg tooltip "${location/+/ }: $condition $temp" \
             '{text: $text, tooltip: $tooltip}')
         
         # Save both current cache and fallback
