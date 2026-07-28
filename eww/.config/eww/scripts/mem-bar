@@ -8,6 +8,10 @@ draw_braille_bar() {
     usage=$1
     bar_width=8
     filled=$(( usage * bar_width / 100 ))
+    
+    if [ "$filled" -gt "$bar_width" ]; then
+        filled=$bar_width
+    fi
 
     bar=""
     for ((i=0; i<bar_width; i++)); do
@@ -20,30 +24,56 @@ draw_braille_bar() {
     echo "[ $bar ]"
 }
 
-# Get memory and swap usage using `free -m`
+# Get memory usage using ps & awk (more responsive than /proc/meminfo)
 get_ram_usage() {
-    read -r _ total used _ <<< $(free -m | awk '/^Mem:/ { print $1, $2, $3 }')
-    echo $(( (used * 100) / total ))
+    # Get memory usage percentage from all processes
+    local total_used=$(ps aux --sort=-%mem | awk '
+    NR>1 {
+        # Extract RSS in KB from column 6, convert to MB
+        if ($6 ~ /^[0-9]+$/) {
+            total += $6
+        }
+    }
+    END {
+        print int(total / 1024)  # Convert to MB
+    }')
+    
+    # Get total memory in MB
+    local total_mem=$(grep MemTotal /proc/meminfo | awk '{print int($2/1024)}')
+    
+    if [ "$total_mem" -gt 0 ]; then
+        echo $(( (total_used * 100) / total_mem ))
+    else
+        echo 0
+    fi
 }
 
 get_swap_usage() {
-    read -r _ total used <<< $(free -m | awk '/^Swap:/ { print $1, $2, $3 }')
-    if [ "$total" -eq 0 ]; then
-        echo 0
-    else
-        echo $(( (used * 100) / total ))
-    fi
+    # Use /proc/meminfo for swap (it's less critical for responsiveness)
+    awk '
+    /^SwapTotal:/ { total = $2 }
+    /^SwapFree:/ { free = $2 }
+    END {
+        if (total > 0) {
+            used = total - free
+            usage = (used * 100) / total
+            printf "%d\n", usage
+        } else {
+            print 0
+        }
+    }
+    ' /proc/meminfo
 }
 
 # CLI arg parser
 case "$1" in
     ram)
         ram=$(get_ram_usage)
-        echo "$(draw_braille_bar $ram)"
+        draw_braille_bar "$ram"
         ;;
     swap)
         swap=$(get_swap_usage)
-        echo "$(draw_braille_bar $swap)"
+        draw_braille_bar "$swap"
         ;;
     *)
         echo "Usage: $0 {ram|swap}"

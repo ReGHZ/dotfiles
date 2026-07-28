@@ -8,18 +8,17 @@ THEME_DIR="$HOME/.config/rofi/themes"
 THEME_STYLE='style-1.rasi'
 THEME="$THEME_DIR/$THEME_STYLE"
 
-DEFAULT_SINK="alsa_output.pci-0000_00_1f.3.analog-stereo"
-DEFAULT_SOURCE="alsa_input.pci-0000_00_1f.3.analog-stereo"
-
 # ========================
 # Audio Status Check
 # ========================
 get_audio_status() {
-  speaker_muted=$(pactl get-sink-mute "$DEFAULT_SINK" | awk '{print $2}')
-  speaker_vol=$(pactl get-sink-volume "$DEFAULT_SINK" | awk '{print $5}' | tr -d '%')
+  speaker_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+  speaker_vol=$(echo "$speaker_info" | awk '{print int($2 * 100)}')
+  [[ "$speaker_info" == *"MUTED"* ]] && speaker_muted="yes" || speaker_muted="no"
 
-  mic_muted=$(pactl get-source-mute "$DEFAULT_SOURCE" | awk '{print $2}')
-  mic_vol=$(pactl get-source-volume "$DEFAULT_SOURCE" | awk '{print $5}' | tr -d '%' 2>/dev/null || echo "N/A")
+  mic_info=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ 2>/dev/null)
+  mic_vol=$(echo "$mic_info" | awk '{print int($2 * 100)}')
+  [[ "$mic_info" == *"MUTED"* ]] && mic_muted="yes" || mic_muted="no"
 
   active=""
   urgent=""
@@ -65,15 +64,15 @@ update_ui_elements() {
 # Audio Control Functions
 # ========================
 toggle_speaker() {
-  pactl set-sink-mute "$DEFAULT_SINK" toggle
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 }
 
 toggle_mic() {
-  pactl set-source-mute "$DEFAULT_SOURCE" toggle
+  wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 }
 
 adjust_volume() {
-  pactl set-sink-volume "$DEFAULT_SINK" "$1"
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"
 }
 
 
@@ -101,9 +100,9 @@ get_audio_status
 update_ui_elements
 
 case $(show_menu) in
-  "${options[0]}") adjust_volume +5% ;;
+  "${options[0]}") adjust_volume 5%+ ;;
   "${options[1]}") toggle_speaker ;;
-  "${options[2]}") adjust_volume -5% ;;
+  "${options[2]}") adjust_volume 5%- ;;
   "${options[3]}") toggle_mic ;;
   "${options[4]}") pavucontrol ;;
 esac

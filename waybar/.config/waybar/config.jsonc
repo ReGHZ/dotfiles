@@ -148,9 +148,9 @@
     "signal": 10,
     "return-type": "json",
     "on-click":"bash ~/.config/rofi/scripts/volume.sh",
-    "on-scroll-up": "amixer set Master 1%+ && pkill -RTMIN+10 waybar",
-    "on-scroll-down": "amixer set Master 1%- && pkill -RTMIN+10 waybar",
-    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGRTMIN+10 waybar"
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+ && pkill -RTMIN+10 waybar",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%- && pkill -RTMIN+10 waybar",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+10 waybar"
   },
   
   "custom/battery": {
