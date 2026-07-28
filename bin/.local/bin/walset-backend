@@ -58,12 +58,14 @@ try:
 except Exception:
     sys.exit(1)
 
+THRESHOLD = 20  # max allowed difference between R, G, B channels
+
 hexes = re.findall(r"#([0-9A-Fa-f]{6})", output)
 for h in hexes:
     r = int(h[0:2], 16)
     g = int(h[2:4], 16)
     b = int(h[4:6], 16)
-    if max(r, g, b) - min(r, g, b) > 10:
+    if max(r, g, b) - min(r, g, b) > THRESHOLD:
         sys.exit(1)
 
 sys.exit(0)
@@ -161,7 +163,7 @@ MATUGEN_ARGS=(--prefer saturation)
 if is_grayscale "$IMAGE"; then
   MATUGEN_ARGS+=(--type scheme-monochrome --fallback-color "$(gray_mean "$IMAGE")")
 fi
-matugen image "$IMAGE" "${MATUGEN_ARGS[@]}"
+matugen image "$IMAGE" --source-color-index 0 "${MATUGEN_ARGS[@]}"
 
 # Hyprlock change colors
 M_CONF="$HOME/.config/hypr/colors.conf"

@@ -79,7 +79,7 @@ configuration {
 
 	/*---------- File browser settings ----------*/
     filebrowser {
-	  directory: "/home/refrain";
+	  directory: "~";
       directories-first: true;
       sorting-method:    "name";
     }
