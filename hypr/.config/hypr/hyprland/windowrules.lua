@@ -4,7 +4,7 @@
 
 -- Remove the weird pop-up behavior in VSCode
 hl.window_rule({ match = { title = "^$", class = "^$" }, stay_focused = true })
-hl.window_rule({ match = { class = "^(code)$" }, opacity = { 0.8, 0.8 } })
+hl.window_rule({ match = { class = "^(code)$" }, opacity = "0.8 0.8" })
 
 -- Make file picker windows floating
 hl.window_rule({
@@ -24,15 +24,15 @@ hl.window_rule({ match = { class = "^(st)$", title = "^(NetworkManager TUI)$" },
 hl.window_rule({
     match = { class = "^(Alacritty|foot|kitty|wezterm)$", title = "^(nmtui)$" },
     float = true,
-    size = { 600, 400 },
+    size = "600 400",
     center = true,
 })
 
 -- make waybar pkg upgrade floating (pacman)
-hl.window_rule({ match = { title = "^(pacman)$" }, float = true, center = true, size = { 800, 600 } })
+hl.window_rule({ match = { title = "^(pacman)$" }, float = true, center = true, size = "800 600" })
 
 -- make thunar floating
-hl.window_rule({ match = { class = "^(thunar)$" }, float = true, center = true, size = { 800, 600 } })
+hl.window_rule({ match = { class = "^(thunar)$" }, float = true, center = true, size = "800 600" })
 
 -- Blur swaync layers
 hl.layer_rule({ match = { namespace = "swaync-control-center" }, blur = true, ignore_alpha = 0.5 })
@@ -58,10 +58,10 @@ hl.window_rule({
 })
 
 -- Sticky note floating
-hl.window_rule({ match = { class = "^sticky-note$" }, float = true, center = true, size = { 800, 500 } })
+hl.window_rule({ match = { class = "^sticky-note$" }, float = true, center = true, size = "800 500" })
 
 -- Clipboard edit floating
-hl.window_rule({ match = { class = "^clipboard-edit$" }, float = true, center = true, size = { 600, 300 } })
+hl.window_rule({ match = { class = "^clipboard-edit$" }, float = true, center = true, size = "600 300" })
 
 -- Game idle inhibit
 hl.window_rule({ match = { title = "^Hades$" }, idle_inhibit = "always" })
@@ -71,6 +71,6 @@ hl.window_rule({
     match = { title = "^(Picture-in-Picture)$" },
     float = true,
     pin = true,
-    size = { 480, 270 },
+    size = "480 270",
     move = "100%-500 100%-300",
 })
