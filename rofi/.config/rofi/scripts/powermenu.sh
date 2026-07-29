@@ -66,7 +66,7 @@ confirm_run () {
 run_cmd() {
 	case "$1" in
 		'--opt1') hyprlock ;;
-		'--opt2') confirm_run 'hyprctl dispatch exit' ;;
+		'--opt2') confirm_run 'hyprctl dispatch hl.dsp.exit()' ;;
 		'--opt3') confirm_run 'amixer set Master mute' 'systemctl suspend' ;;
 		'--opt4') confirm_run 'systemctl hibernate' ;;
 		'--opt5') confirm_run 'systemctl reboot' ;;
